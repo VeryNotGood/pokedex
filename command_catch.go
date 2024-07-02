@@ -19,7 +19,7 @@ func callbackCatch(cfg *config, args ...string) error {
 	}
 	const myExperience = 30
 	catchDifficulty := rand.Intn(pokemon.BaseExperience)
-	fmt.Printf("Trying to catch %s...\n", pokemon.Name)
+	fmt.Printf("Throwing a Pokeball at %s...\n", pokemon.Name)
 	for i := 1; i <= int(catchDifficulty/10); i++ {
 		fmt.Print(".")
 		time.Sleep(250 * time.Millisecond)
@@ -27,11 +27,12 @@ func callbackCatch(cfg *config, args ...string) error {
 	fmt.Printf(".\n")
 
 	if catchDifficulty > myExperience {
-		fmt.Printf("You did not catch %s!\n", pokemonName)
+		fmt.Printf("%s escaped!\n", pokemonName)
 		return err
 	}
 
 	fmt.Printf("You caught %s!\n", pokemon.Name)
+	cfg.pokedex.Add(pokemon.Name, pokemon)
 
 	return nil
 }
